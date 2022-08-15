@@ -134,7 +134,7 @@ def xor(data, key):
 def decrypt_beacon(buf):
     data = bytearray(buf)
     Found = False
-    if data[0:2] == b'\xfc\xe8' or data[0:2] == b'\xfc\x48' or data[0:2] == b'\x83\xcf':
+    if data[0:2] == b'\xfc\xe8' or data[0:2] == b'\xfc\x48' or data[0:2] == b'\x83\xcf' or data[0:2] == b'\x48\x85' :
         i = buf.find(b'\xff\xff\xff') + 3
         data = data[i:]
         key = data[0:4]
