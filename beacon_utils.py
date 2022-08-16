@@ -133,8 +133,14 @@ def xor(data, key):
 
 def decrypt_beacon(buf):
     data = bytearray(buf)
-    Beacon = [ b'\xfc\xe8', b'\xfc\x48', b'\x83\xcf', b'\x48\x85', b'\x90\x90', b'\x00\x00', b'\x50\x50', b'\x48\x81', b'\xeb\x37', b'\xbd\x36', b'\x83\xc5', b'\x81\xfa', b'\x81\xea', b'\x4d\x81', b'\x48\xff', b'\x48\xc7', b'\x48\x89', b'\x48\x39', b'\x48\x21', b'\x46\x81', b'\x42\x81', b'\x29\xd9' ]
-    if data[0:2] in Beacon :
+    shellcodePrefixList = [ b'\xfc\xe8', b'\xfc\x48', b'\x83\xcf', b'\x48\x85' ]
+    shiftRight = 0
+    for pos in range(0,64,2):
+        if data[pos:pos+2] in shellcodePrefixList:
+            if pos > 0 :
+                shiftRight = pos
+                break
+    if data[0:2] in shellcodePrefixList or data[shiftRight:shiftRight+2] in shellcodePrefixList :
         i = buf.find(b'\xff\xff\xff') + 3
         data = data[i:]
         key = data[0:4]
