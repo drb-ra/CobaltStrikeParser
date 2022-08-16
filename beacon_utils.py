@@ -135,7 +135,7 @@ def decrypt_beacon(buf):
     data = bytearray(buf)
     shellcodePrefixList = [ b'\xfc\xe8', b'\xfc\x48', b'\x83\xcf', b'\x48\x85' ]
     shiftRight = 0
-    for pos in range(0,64,2):
+    for pos in range(0,512,2):
         if data[pos:pos+2] in shellcodePrefixList:
             if pos > 0 :
                 shiftRight = pos
